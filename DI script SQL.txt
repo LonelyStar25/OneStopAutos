@@ -1,0 +1,173 @@
+CREATE SCHEMA `desarrollodeinterfaces` ;
+
+CREATE TABLE `desarrollodeinterfaces`.`usuario` (
+  `DNI_Usuario` VARCHAR(15) NOT NULL,
+  `Usuario` VARCHAR(45) NULL,
+  `Contraseña` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(45) NULL,
+  `Apellidos` VARCHAR(45) NULL,
+  `NUSS` VARCHAR(45) NULL,
+  `SueldoBase` INT NULL,
+  `Correo` VARCHAR(45) NULL,
+  PRIMARY KEY (`DNI_Usuario`),
+  UNIQUE INDEX `Usuario_UNIQUE` (`Usuario` ASC) VISIBLE,
+  UNIQUE INDEX `NUSS_UNIQUE` (`NUSS` ASC) VISIBLE,
+  UNIQUE INDEX `Correo_UNIQUE` (`Correo` ASC) VISIBLE);
+
+CREATE TABLE `desarrollodeinterfaces`.`mecánico` (
+  `DNI_Usuario` VARCHAR(15) NOT NULL,
+  `Es_Jefe` TINYINT NULL,
+  `Especialidad` VARCHAR(45) NULL,
+  PRIMARY KEY (`DNI_Usuario`));
+
+CREATE TABLE `desarrollodeinterfaces`.`venta` (
+  `Num_Serial` INT NOT NULL,
+  `DNI_Cliente` VARCHAR(15) NOT NULL,
+  `DNI_Usuario` VARCHAR(15) NOT NULL,
+  `Beneficios` INT NULL,
+  `Plazo` VARCHAR(45) NULL,
+  PRIMARY KEY (`Num_Serial`, `DNI_Cliente`, `DNI_Usuario`));
+
+CREATE TABLE `desarrollodeinterfaces`.`reparación` (
+  `NumIncidencia` INT NOT NULL,
+  `DNI_Cliente` VARCHAR(15) NULL,
+  `DNI_Usuario` VARCHAR(15) NULL,
+  `Problema` VARCHAR(45) NULL,
+  `Coste` INT NULL,
+  `Tiempo_Estimado` VARCHAR(45) NULL,
+  `Piezas` VARCHAR(45) NULL,
+  PRIMARY KEY (`NumIncidencia`));
+
+CREATE TABLE `desarrollodeinterfaces`.`vehículo` (
+  `Num_Serial` INT NOT NULL,
+  `Modelo` VARCHAR(45) NULL,
+  `Marca` VARCHAR(45) NULL,
+  `Tipo` VARCHAR(45) NULL,
+  `Precio` INT NULL,
+  `Fecha_Entrada` VARCHAR(45) NULL,
+  `Inf_Adicional` VARCHAR(45) NULL,
+  PRIMARY KEY (`Num_Serial`));
+
+CREATE TABLE `desarrollodeinterfaces`.`cliente` (
+  `DNI_Cliente` VARCHAR(15) NOT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  `Apellidos` VARCHAR(45) NULL,
+  `Teléfono` VARCHAR(45) NULL,
+  `Domicilio` VARCHAR(45) NULL,
+  `Correo` VARCHAR(45) NULL,
+  PRIMARY KEY (`DNI_Cliente`));
+
+ALTER TABLE `desarrollodeinterfaces`.`mecánico` 
+ADD CONSTRAINT `DNI_Usuario`
+  FOREIGN KEY (`DNI_Usuario`)
+  REFERENCES `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE `desarrollodeinterfaces`.`venta` 
+ADD CONSTRAINT `Num_Serial`
+  FOREIGN KEY (`Num_Serial`)
+  REFERENCES `desarrollodeinterfaces`.`vehículo` (`Num_Serial`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `DNI_Cliente2`
+  FOREIGN KEY (`DNI_Cliente`)
+  REFERENCES `desarrollodeinterfaces`.`cliente` (`DNI_Cliente`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `DNI_Usuario2`
+  FOREIGN KEY (`DNI_Usuario`)
+  REFERENCES `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `desarrollodeinterfaces`.`reparación` 
+ADD INDEX `DNI_Cliente3_idx` (`DNI_Cliente` ASC) VISIBLE,
+ADD INDEX `DNI_Usuario3_idx` (`DNI_Usuario` ASC) VISIBLE;
+;
+ALTER TABLE `desarrollodeinterfaces`.`reparación` 
+ADD CONSTRAINT `DNI_Cliente3`
+  FOREIGN KEY (`DNI_Cliente`)
+  REFERENCES `desarrollodeinterfaces`.`cliente` (`DNI_Cliente`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `DNI_Usuario3`
+  FOREIGN KEY (`DNI_Usuario`)
+  REFERENCES `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+INSERT INTO `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`, `Usuario`, `Contraseña`, `Nombre`, `Apellidos`, `NUSS`, `SueldoBase`, `Correo`) VALUES ('57394853G', 'Pepe27', 'pinchitos', 'Pepe', 'Viyuelas', '574839402', '1500', 'pepe@pepe.com');
+INSERT INTO `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`, `Usuario`, `Contraseña`, `Nombre`, `Apellidos`, `NUSS`, `SueldoBase`, `Correo`) VALUES ('48593066B', 'elMakina', 'PaNdA', 'Daniel', 'Ramírez', '5728492048593', '1200', 'correo@gmail.com');
+INSERT INTO `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`, `Usuario`, `Contraseña`, `Nombre`, `Apellidos`, `NUSS`, `SueldoBase`, `Correo`) VALUES ('99948352R', 'uSUARIO', '1234', 'Roque', 'Roca', '6768768768', '1100', 'rocaroque@gmail.com');
+INSERT INTO `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`, `Usuario`, `Contraseña`, `Nombre`, `Apellidos`, `NUSS`, `SueldoBase`, `Correo`) VALUES ('35253647T', 'lilythecookie', 'galletitas1', 'Cristina', 'Ferrer', '8987987436424', '1300', 'cookiesaregreat@yahoo.com');
+
+INSERT INTO `desarrollodeinterfaces`.`cliente` (`DNI_Cliente`, `Nombre`, `Apellidos`, `Teléfono`, `Domicilio`, `Correo`) VALUES ('66666666S', 'Satanás', 'Averno', '666666666', 'Hades', 'infierno.inc@gmail.com');
+INSERT INTO `desarrollodeinterfaces`.`cliente` (`DNI_Cliente`, `Nombre`, `Apellidos`, `Teléfono`, `Domicilio`, `Correo`) VALUES ('47898923T', 'Ejemplo', 'Ejémplez', '777444555', 'Su casa', 'ejemplo@ejemplo.com');
+
+INSERT INTO `desarrollodeinterfaces`.`mecánico` (`DNI_Usuario`, `Es_Jefe`, `Especialidad`) VALUES ('48593066B', '1', 'Lechuzas pardas');
+INSERT INTO `desarrollodeinterfaces`.`mecánico` (`DNI_Usuario`, `Es_Jefe`, `Especialidad`) VALUES ('99948352R', '0', 'Altramuces');
+
+INSERT INTO `desarrollodeinterfaces`.`vehículo` (`Num_Serial`, `Modelo`, `Marca`, `Tipo`, `Precio`, `Fecha_Entrada`, `Inf_Adicional`) VALUES ('83495092', 'Fiesta', 'Ford', 'Coche', '5000', '4/7/2020', 'Está un poco cascado');
+INSERT INTO `desarrollodeinterfaces`.`vehículo` (`Num_Serial`, `Modelo`, `Marca`, `Tipo`, `Precio`, `Fecha_Entrada`, `Inf_Adicional`) VALUES ('4829382', 'C3', 'Citroen', 'Coche', '7000', '3/8/2020', '');
+INSERT INTO `desarrollodeinterfaces`.`vehículo` (`Num_Serial`, `Modelo`, `Marca`, `Tipo`, `Precio`, `Fecha_Entrada`, `Inf_Adicional`) VALUES ('48920903', 'Honda', 'Honda', 'Moto', '2000', '12/3/2020', 'Lleva mucho tiempo sin venderse');
+
+INSERT INTO `desarrollodeinterfaces`.`reparación` (`NumIncidencia`, `DNI_Cliente`, `DNI_Usuario`, `Problema`, `Coste`, `Tiempo_Estimado`, `Piezas`) VALUES ('3', '66666666S', '48593066B', 'El humo huele a almas inquietas', '2000', '15 días', 'Motor nuevo');
+
+INSERT INTO `desarrollodeinterfaces`.`venta` (`Num_Serial`, `DNI_Cliente`, `DNI_Usuario`, `Beneficios`, `Plazo`) VALUES ('83495092', '47898923T', '35253647T', '5000', '40 días');
+
+ALTER TABLE `desarrollodeinterfaces`.`usuario` 
+ADD COLUMN `Profesión` VARCHAR(45) NULL AFTER `Correo`;
+
+UPDATE `desarrollodeinterfaces`.`usuario` SET `Profesión` = 'Mecánico' WHERE (`DNI_Usuario` = '48593066B');
+UPDATE `desarrollodeinterfaces`.`usuario` SET `Profesión` = 'Mecánico' WHERE (`DNI_Usuario` = '99948352R');
+UPDATE `desarrollodeinterfaces`.`usuario` SET `Profesión` = 'Ventas' WHERE (`DNI_Usuario` = '35253647T');
+UPDATE `desarrollodeinterfaces`.`usuario` SET `Profesión` = 'Jefe' WHERE (`DNI_Usuario` = '57394853G');
+
+ALTER TABLE `desarrollodeinterfaces`.`usuario` 
+CHANGE COLUMN `Usuario` `Usuario` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Contraseña` `Contraseña` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Nombre` `Nombre` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Apellidos` `Apellidos` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `NUSS` `NUSS` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `SueldoBase` `SueldoBase` INT NOT NULL ,
+CHANGE COLUMN `Profesión` `Profesión` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `desarrollodeinterfaces`.`cliente` 
+CHANGE COLUMN `Nombre` `Nombre` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Apellidos` `Apellidos` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Teléfono` `Teléfono` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Domicilio` `Domicilio` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `desarrollodeinterfaces`.`mecánico` 
+CHANGE COLUMN `Es_Jefe` `Es_Jefe` TINYINT NOT NULL ;
+
+ALTER TABLE `desarrollodeinterfaces`.`reparación` 
+DROP FOREIGN KEY `DNI_Cliente3`,
+DROP FOREIGN KEY `DNI_Usuario3`;
+ALTER TABLE `desarrollodeinterfaces`.`reparación` 
+CHANGE COLUMN `DNI_Cliente` `DNI_Cliente` VARCHAR(15) NOT NULL ,
+CHANGE COLUMN `DNI_Usuario` `DNI_Usuario` VARCHAR(15) NOT NULL ,
+CHANGE COLUMN `Problema` `Problema` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Coste` `Coste` INT NOT NULL ,
+CHANGE COLUMN `Tiempo_Estimado` `Tiempo_Estimado` VARCHAR(45) NOT NULL ;
+ALTER TABLE `desarrollodeinterfaces`.`reparación` 
+ADD CONSTRAINT `DNI_Cliente3`
+  FOREIGN KEY (`DNI_Cliente`)
+  REFERENCES `desarrollodeinterfaces`.`cliente` (`DNI_Cliente`),
+ADD CONSTRAINT `DNI_Usuario3`
+  FOREIGN KEY (`DNI_Usuario`)
+  REFERENCES `desarrollodeinterfaces`.`usuario` (`DNI_Usuario`);
+
+ALTER TABLE `desarrollodeinterfaces`.`vehículo` 
+CHANGE COLUMN `Modelo` `Modelo` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Marca` `Marca` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Tipo` `Tipo` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `Precio` `Precio` INT NOT NULL ,
+CHANGE COLUMN `Fecha_Entrada` `Fecha_Entrada` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `desarrollodeinterfaces`.`venta` 
+CHANGE COLUMN `Beneficios` `Beneficios` INT NOT NULL ,
+CHANGE COLUMN `Plazo` `Plazo` VARCHAR(45) NULL ;
+

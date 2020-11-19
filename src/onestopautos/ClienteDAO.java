@@ -24,6 +24,23 @@ public class ClienteDAO extends AbstractDAO{
         }
         return datosClientes;
     }
+    
+    /**
+     * Sobrecarga de recibirDatos que devuelve solo el cliente con el DNI dado como parámetro
+     *
+     * @param DNICliente
+     * @return array de reparaciones
+     */
+    public Cliente recibirDatos(String DNICliente) {
+        ArrayList<Object> datosClientes = recibirDatos();
+        for (Object dato : datosClientes) {
+            Cliente cli=(Cliente)dato;
+            if (cli.DNI.equals(DNICliente)) {
+                return cli;
+            }
+        }
+        return null;
+    }
 
     /**
      * Inserta los datos pasados como parámetro en la tabla clientes de la BD.

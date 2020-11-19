@@ -1,6 +1,7 @@
 package onestopautos;
 
 public class Reparación {
+
     int numIncidencia, coste;
     String DNICliente, DNIUsuario, problema, tiempoEstimado, piezas;
 

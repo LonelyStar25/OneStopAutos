@@ -95,24 +95,24 @@ public class ReparaciónDAO extends AbstractDAO {
                             + "', " + datoReparación.coste + ", '" + datoReparación.tiempoEstimado + "', '"
                             + datoReparación.piezas + "');");
                 }
-                
-                coincideUsuario=false;
-                coincideCliente=false;
+
+                coincideUsuario = false;
+                coincideCliente = false;
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
         }
     }
-    
+
     /**
      * Elimina una reparación de la BD
      *
      * @param reparación
      */
-    public void eliminarDato(Reparación reparación){
+    public void eliminarDato(Reparación reparación) {
         try {
             stm.executeUpdate("delete from `desarrollodeinterfaces`.`reparación` "
-                    + "where NumIncidencia="+reparación.numIncidencia+";");
+                    + "where NumIncidencia=" + reparación.numIncidencia + ";");
         } catch (SQLException ex) {
             System.out.println("Oh no!");
         }

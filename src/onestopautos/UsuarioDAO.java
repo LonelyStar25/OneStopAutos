@@ -54,9 +54,9 @@ public class UsuarioDAO extends AbstractDAO {
      *
      * @return array de mecánicos
      */
-    public ArrayList<Object> recibirDatosMecánicos() {
+    public ArrayList<Mecánico> recibirDatosMecánicos() {
         ArrayList<Object> datosUsuarios = recibirDatos();
-        ArrayList<Object> datosMecánicos = new ArrayList<>();
+        ArrayList<Mecánico> datosMecánicos = new ArrayList<>();
         try {
             rs = stm.executeQuery("select * from desarrollodeinterfaces.mecánico");
             while (rs.next()) {
@@ -77,23 +77,43 @@ public class UsuarioDAO extends AbstractDAO {
 
     /**
      * Inserta los datos pasados como parámetro en la tabla usuarios de la BD.
+     * Además, si el usuario en cuestión es un mecánico, actualiza la tabla
+     * Mecánico. Acepta elementos de ambas clases: Usuario y Mecánico.
      *
      * @param datos
      */
     @Override
     public void subirDatos(ArrayList<Object> datos) {
+        Usuario datoUsuario = null;
+        Mecánico datoMecánico = null;
+        boolean esMecánico = false;
+
         try {
             for (Object dato : datos) {
-                Usuario datoUsuario = (Usuario) dato;
+                if (dato.getClass() == Class.forName("onestopautos.Mecánico")) {
+                    esMecánico = true;
+                    datoUsuario = (Mecánico) dato;
+                    datoMecánico = (Mecánico) dato;
+                } else if (dato.getClass() == Class.forName("onestopautos.Usuario")) {
+                    datoUsuario = (Usuario) dato;
+                }
                 stm.executeUpdate("INSERT INTO `desarrollodeinterfaces`.`usuario` "
                         + "(`DNI_Usuario`, `Usuario`, `Contraseña`, `Nombre`, `Apellidos`, "
                         + "`NUSS`, `SueldoBase`, `Correo`, `Profesión`) VALUES ('" + datoUsuario.DNI + "', '"
                         + datoUsuario.usuario + "', '" + datoUsuario.contraseña + "', '" + datoUsuario.nombre
                         + "', '" + datoUsuario.apellidos + "', '" + datoUsuario.NUSS + "', "
                         + datoUsuario.sueldoBase + ", '" + datoUsuario.correo + "', '" + datoUsuario.profesión + "');");
+                if (esMecánico) {
+                    stm.executeUpdate("INSERT INTO `desarrollodeinterfaces`.`mecánico` "
+                            + "(`DNI_Usuario`, `Es_Jefe`, `Especialidad`) VALUES ('" + datoUsuario.DNI + "', "
+                            + datoMecánico.esJefe + ", '" + datoMecánico.especialidad + "');");
+                }
+                esMecánico = false;
             }
         } catch (SQLException ex) {
             System.out.println("Oh no!");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("No me metas arrays de cosas raras");
         }
     }
 

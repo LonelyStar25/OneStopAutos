@@ -16,13 +16,13 @@ public abstract class AbstractDAO {
 
     public AbstractDAO() {
         try {
-            cn= DriverManager.getConnection(URL, USUARIO, CLAVE);
+            cn = DriverManager.getConnection(URL, USUARIO, CLAVE);
             stm = cn.createStatement();
         } catch (SQLException ex) {
             System.out.println("Error en la conexión");
         }
     }
-    
+
     static {
         try {
             Class.forName(CONTROLADOR);
@@ -30,8 +30,14 @@ public abstract class AbstractDAO {
             System.out.println("Error al cargar el controlador");
         }
     }
-    
+
     public abstract ArrayList<Object> recibirDatos();
-    
+
     public abstract void subirDatos(ArrayList<Object> datos);
+
+    public void subirDato(Object dato) {
+        ArrayList<Object> datos = new ArrayList<>();
+        datos.add(dato);
+        subirDatos(datos);
+    }
 }

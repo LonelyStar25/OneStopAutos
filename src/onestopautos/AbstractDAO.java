@@ -35,9 +35,41 @@ public abstract class AbstractDAO {
 
     public abstract void subirDatos(ArrayList<Object> datos);
 
+    /**
+     * Sube un dato de la clase correspondiente a la tabla correspondiente.
+     * 
+     * @param dato 
+     */
     public void subirDato(Object dato) {
         ArrayList<Object> datos = new ArrayList<>();
         datos.add(dato);
         subirDatos(datos);
+    }
+
+    /**
+     * Mi más grande creación. La mejor y más útil función que he hecho nunca.
+     * En función de un término de búsqueda cualquiera, devuelve los elementos
+     * coincidentes. Puede usarse como término de búsqueda cualquier campo de
+     * los datos de la clase en cuestión.
+     *
+     * @param términoBúsqueda
+     * @return resultados
+     */
+    public ArrayList<Object> buscarDato(String términoBúsqueda) {
+        ArrayList<Object> datos = recibirDatos();
+        ArrayList<Object> resultados = new ArrayList<>();
+        String ToString;
+
+        for (Object dato : datos) {
+            try {
+                ToString = (String) dato.getClass().getMethod("toString").invoke(dato);
+                if (ToString.contains(términoBúsqueda)) {
+                    resultados.add(dato);
+                }
+            } catch (Exception ex) {
+                System.out.println("Esto no debería estar pasando. Échale la culpa a Carmen el desastre con patas");
+            }
+        }
+        return resultados;
     }
 }

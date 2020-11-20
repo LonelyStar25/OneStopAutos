@@ -16,7 +16,9 @@ public class Mecánico extends Usuario {
     //los ToString solo están aquí para hacer pruebas
     @Override
     public String toString() {
-        return "Mec\u00e1nico{" + "esJefe=" + esJefe + ", especialidad=" + especialidad + '}' + DNI;
+        return "Mec\u00e1nico{" + "esJefe=" + esJefe + ", especialidad=" + especialidad + '}'
+                + DNI + usuario + contraseña + nombre + apellidos + NUSS + sueldoBase + correo
+                + profesión;
     }
 
 }

@@ -1,6 +1,7 @@
 package onestopautos;
 
 public class Vehículo {
+
     int numSerial, precio;
     String modelo, marca, tipo, fechaEntrada, infoAdicional;
 
@@ -16,6 +17,7 @@ public class Vehículo {
 
     @Override
     public String toString() {
-        return "Veh\u00edculo{" + "numSerial=" + numSerial + ", precio=" + precio + ", modelo=" + modelo + ", marca=" + marca + ", tipo=" + tipo + ", fechaEntrada=" + fechaEntrada + ", infoAdicional=" + infoAdicional + '}';
+        return numSerial + " " + precio + " " + modelo + " " + marca + " " + tipo
+                + " " + fechaEntrada + " " + infoAdicional;
     }
 }

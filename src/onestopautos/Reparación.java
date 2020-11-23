@@ -17,6 +17,7 @@ public class Reparación {
 
     @Override
     public String toString() {
-        return "Reparaci\u00f3n{" + "numIncidencia=" + numIncidencia + ", coste=" + coste + ", DNICliente=" + DNICliente + ", DNIUsuario=" + DNIUsuario + ", problema=" + problema + ", tiempoEstimado=" + tiempoEstimado + ", piezas=" + piezas + '}';
+        return numIncidencia + " " + coste + " " + DNICliente + " " + DNIUsuario
+                + " " + problema + " " + tiempoEstimado + " " + piezas;
     }
 }

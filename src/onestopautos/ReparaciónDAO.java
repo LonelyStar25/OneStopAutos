@@ -27,6 +27,8 @@ public class ReparaciónDAO extends AbstractDAO {
     }
 
     /**
+     * @deprecated usar mejor la función buscarDatos
+     * 
      * Sobrecarga de recibirDatos que devuelve solo las reparaciones asignadas
      * al mecánico con el DNI pasado como parámetro
      *
@@ -46,6 +48,8 @@ public class ReparaciónDAO extends AbstractDAO {
     }
 
     /**
+     * @deprecated usar mejor la función buscarDatos
+     * 
      * Otra sobrecarga de recibirDatos, esta vez con un objeto Mecánico como
      * parámetro
      *

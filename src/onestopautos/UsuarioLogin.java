@@ -10,7 +10,7 @@ public class UsuarioLogin {
 
     @Override
     public String toString() {
-        return "Usuario{" + "usuario=" + usuario + ", contrase\u00f1a=" + contraseña + '}';
+        return usuario + " " + contraseña;
     }
     
 }

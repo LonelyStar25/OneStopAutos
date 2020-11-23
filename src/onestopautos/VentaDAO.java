@@ -46,7 +46,7 @@ public class VentaDAO extends AbstractDAO {
 
                 for (Object usu : usuarios) {
                     Usuario usuario = (Usuario) usu;
-                    if (usuario.DNI.equals(datoVenta.DNIUsuario)) {
+                    if (usuario.DNI.equals(datoVenta.DNIUsuario) && "Ventas".equals(usuario.profesión)) {
                         coincideUsuario = true;
                     }
                 }

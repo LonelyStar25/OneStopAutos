@@ -7,10 +7,5 @@ public class UsuarioLogin {
         this.usuario = usuario;
         this.contraseña = contraseña;
     }
-
-    @Override
-    public String toString() {
-        return usuario + " " + contraseña;
-    }
     
 }

@@ -80,7 +80,7 @@ public class ReparaciónDAO extends AbstractDAO {
 
                 for (Object usu : usuarios) {
                     Usuario usuario = (Usuario) usu;
-                    if (usuario.DNI.equals(datoReparación.DNIUsuario)) {
+                    if (usuario.DNI.equals(datoReparación.DNIUsuario) && "Mecánico".equals(usuario.profesión)) {
                         coincideUsuario = true;
                     }
                 }
